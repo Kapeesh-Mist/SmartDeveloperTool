@@ -1,0 +1,14 @@
+{
+  "info": {
+    "name": "Demo API"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "request": {
+        "method": "GET",
+        "url": "https://api.example.com/users"
+      }
+    }
+  ]
+}

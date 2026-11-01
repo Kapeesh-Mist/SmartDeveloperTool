@@ -12,8 +12,9 @@ from smartdevtool.manifest import ManifestManager
 runner = CliRunner()
 
 
-def test_cli_docker_build_generates_dockerfile(tmp_path: Path):
+def test_cli_docker_build_generates_dockerfile(tmp_path: Path, monkeypatch):
     """Test `smartdevtool docker build` generates a tailored Dockerfile."""
+    monkeypatch.setattr("smartdevtool.cli.docker_available", lambda: False)
     (tmp_path / "app.py").write_text("print('hello')", encoding="utf-8")
 
     # Record some dependencies in manifest

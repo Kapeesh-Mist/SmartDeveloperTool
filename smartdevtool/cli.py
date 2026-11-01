@@ -314,8 +314,9 @@ def docker_build(
     cfg = Config.load()
     llm_client = None if no_llm else LLMClient(cfg)
 
-    # 1. Check Docker availability
-    if not docker_available():
+    # 1. Check Docker availability (evaluate once to avoid transient mismatch)
+    is_docker_available = docker_available()
+    if not is_docker_available:
         ui.warn("Docker binary is not installed or the Docker daemon is not running.")
         ui.step("Generating Dockerfile locally without executing docker build...")
 
@@ -344,7 +345,7 @@ def docker_build(
     ui.success(f"Dockerfile saved to: {df_path.resolve()}")
 
     # If docker is not available, stop here cleanly
-    if not docker_available():
+    if not is_docker_available:
         ui.warn("Skipping image build step because Docker is unavailable.")
         return
 

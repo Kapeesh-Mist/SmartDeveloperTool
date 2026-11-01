@@ -12,7 +12,7 @@ from smartdevtool.manifest import ManifestManager
 runner = CliRunner()
 
 
-def test_cli_docker_build_generates_dockerfile(tmp_path: Path):
+def test_cli_docker_build_generates_dockerfile(tmp_path: Path, monkeypatch):
     """Test `smartdevtool docker build` generates a tailored Dockerfile."""
     (tmp_path / "app.py").write_text("print('hello')", encoding="utf-8")
 
@@ -23,6 +23,9 @@ def test_cli_docker_build_generates_dockerfile(tmp_path: Path):
         distribution_map={"requests": "requests"},
         pinned_dependencies=["requests==2.31.0"],
     )
+
+    # In unit tests, avoid executing real Docker daemon commands
+    monkeypatch.setattr("smartdevtool.cli.docker_available", lambda: False)
 
     result = runner.invoke(
         app,
@@ -35,9 +38,12 @@ def test_cli_docker_build_generates_dockerfile(tmp_path: Path):
     assert "COPY requirements.txt ." in content
 
 
-def test_cli_docker_sync(tmp_path: Path):
+def test_cli_docker_sync(tmp_path: Path, monkeypatch):
     """Test `smartdevtool docker sync` in non-watch mode."""
     (tmp_path / "main.py").write_text("API_VAL = 1", encoding="utf-8")
+
+    # In unit tests, avoid executing real Docker daemon commands
+    monkeypatch.setattr("smartdevtool.docker.sync_agent.docker_available", lambda: False)
 
     result = runner.invoke(
         app,

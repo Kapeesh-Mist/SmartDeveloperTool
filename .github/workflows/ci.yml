@@ -1,0 +1,48 @@
+# .github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    branches: ["**"]          # every branch
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]   # test on both
+
+    steps:
+      # 1. Get the code
+      - uses: actions/checkout@v4
+
+      # 2. Set up Python
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      # 3. Install the package + dev tools
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      # 4. Lint with ruff (already in your pyproject.toml)
+      - name: Lint
+        run: ruff check .
+
+      # 5. Run all tests with coverage
+      - name: Test
+        env:
+          # Inject secrets safely — never hardcode these
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          SMARTDEVTOOL_LOG_LEVEL: WARNING
+          MAX_ITERS_DEPS: 2
+          MAX_ITERS_WRAPPER: 2
+        run: pytest --cov=smartdevtool --cov-report=term-missing -q
+
+      # 6. Build the distributable package
+      - name: Build
+        run: python -m build

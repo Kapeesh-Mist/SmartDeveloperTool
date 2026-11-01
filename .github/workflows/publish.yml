@@ -1,0 +1,33 @@
+# .github/workflows/publish.yml
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*.*.*"    # triggers on: git tag v0.2.0 && git push --tags
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi          # requires manual approval in GitHub settings
+    permissions:
+      id-token: write          # trusted publishing — no PyPI token needed
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install -e ".[dev]"
+
+      - name: Run tests before publish
+        run: pytest -q
+
+      - name: Build
+        run: python -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        # Uses OIDC trusted publishing — no secrets required if configured

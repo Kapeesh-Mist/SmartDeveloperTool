@@ -10,13 +10,13 @@ from __future__ import annotations
 
 import time
 from pathlib import Path
-from typing import Any
-from watchdog.events import FileSystemEventHandler, FileSystemEvent
+
+from watchdog.events import FileSystemEvent, FileSystemEventHandler
 from watchdog.observers import Observer
 
 from smartdevtool import ui
 from smartdevtool.docker.build import DockerBuilder, docker_available
-from smartdevtool.docker.change_detector import ChangeDetector, IGNORE_DIRS
+from smartdevtool.docker.change_detector import IGNORE_DIRS, ChangeDetector
 from smartdevtool.docker.dockerfile_gen import DockerfileGenerator
 from smartdevtool.llm.client import LLMClient
 from smartdevtool.llm.prompts import (

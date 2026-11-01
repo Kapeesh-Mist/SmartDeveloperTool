@@ -10,7 +10,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-
 AuthType = Literal["api_key", "jwt", "oauth2", "basic_auth", "none"]
 ParamLocation = Literal["query", "path", "header", "body"]
 

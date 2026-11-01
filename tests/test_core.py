@@ -3,15 +3,13 @@
 from __future__ import annotations
 
 import os
-import tempfile
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
-import pytest
-from smartdevtool.config import Config
 from smartdevtool import ui
-from smartdevtool.manifest import ManifestManager, Manifest
+from smartdevtool.config import Config
 from smartdevtool.llm.client import LLMClient
+from smartdevtool.manifest import ManifestManager
 
 
 def test_config_env_dynamic_evaluation():

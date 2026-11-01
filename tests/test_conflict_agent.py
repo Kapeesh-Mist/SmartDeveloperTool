@@ -5,9 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from unittest.mock import MagicMock
 
-import pytest
-from smartdevtool.deps.resolver import DependencyResolver, CompileResult
 from smartdevtool.deps.conflict_agent import ConflictAgent
+from smartdevtool.deps.resolver import CompileResult, DependencyResolver
 from smartdevtool.llm.client import LLMClient
 
 

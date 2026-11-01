@@ -11,7 +11,7 @@ import re
 from collections import Counter
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
 
 from smartdevtool.wrapper.auth_detector import classify_header
 from smartdevtool.wrapper.spec import AuthInfo, EndpointDef, EndpointSpec, ParamSpec
@@ -72,7 +72,7 @@ class HarParser:
         """Load HAR from file or string."""
         if isinstance(source, Path) or (isinstance(source, str) and (source.endswith(".har") or Path(source).is_file())):
             try:
-                with open(source, "r", encoding="utf-8-sig") as f:
+                with open(source, encoding="utf-8-sig") as f:
                     return json.load(f)
             except Exception:
                 pass

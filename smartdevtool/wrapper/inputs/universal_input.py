@@ -1,10 +1,10 @@
 # smartdevtool/wrapper/inputs/universal_input.py
-import os
 from smartdevtool.llm.client import LLMClient
 from smartdevtool.wrapper.inputs.curl_input import CurlInput
 from smartdevtool.wrapper.inputs.doc_input import DocInput
-from smartdevtool.wrapper.inputs.postman_input import PostmanInput
 from smartdevtool.wrapper.inputs.har_input import HarInput
+from smartdevtool.wrapper.inputs.postman_input import PostmanInput
+
 
 class UniversalInput:
     def __init__(self, raw_input: str):

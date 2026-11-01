@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from pathlib import Path
-from smartdevtool.deps.scanner import ImportScanner
+
 from smartdevtool.deps.mapper import map_import_to_distribution, map_imports
+from smartdevtool.deps.scanner import ImportScanner
 
 
 def test_import_scanner_ast(tmp_path: Path):

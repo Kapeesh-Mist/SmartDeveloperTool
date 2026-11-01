@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from pathlib import Path
+
 from typer.testing import CliRunner
+
 from smartdevtool.cli import app
 
 runner = CliRunner()

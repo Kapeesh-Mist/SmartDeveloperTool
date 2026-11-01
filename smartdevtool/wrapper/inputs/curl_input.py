@@ -9,7 +9,7 @@ from __future__ import annotations
 import json
 import re
 import shlex
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
 
 from smartdevtool.wrapper.auth_detector import classify_header
 from smartdevtool.wrapper.spec import AuthInfo, EndpointDef, EndpointSpec, ParamSpec

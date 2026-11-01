@@ -12,8 +12,8 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-import yaml
 import httpx
+import yaml
 
 from smartdevtool.wrapper.auth_detector import classify_openapi_scheme
 from smartdevtool.wrapper.spec import AuthInfo, EndpointDef, EndpointSpec, ParamSpec
@@ -40,7 +40,7 @@ class DocParser:
         # Check if local file
         if isinstance(source, Path) or Path(s).is_file():
             try:
-                with open(source, "r", encoding="utf-8-sig") as f:
+                with open(source, encoding="utf-8-sig") as f:
                     return f.read()
             except Exception:
                 pass

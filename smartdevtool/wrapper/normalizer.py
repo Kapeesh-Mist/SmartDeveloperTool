@@ -7,7 +7,7 @@ Deduplicates by (method, path); first spec's auth and base_url win on conflict.
 
 from __future__ import annotations
 
-from smartdevtool.wrapper.spec import EndpointSpec, EndpointDef, AuthInfo
+from smartdevtool.wrapper.spec import AuthInfo, EndpointDef, EndpointSpec
 
 
 class Normalizer:

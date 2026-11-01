@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import ast
-import json
 from pathlib import Path
+
 from typer.testing import CliRunner
+
 from smartdevtool.cli import app
 from smartdevtool.manifest import ManifestManager
 

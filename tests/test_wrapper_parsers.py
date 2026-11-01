@@ -5,9 +5,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from smartdevtool.wrapper.spec import EndpointSpec, ParamSpec, EndpointDef, AuthInfo
-from smartdevtool.wrapper.auth_detector import classify_header, classify_postman_auth, classify_openapi_scheme
-from smartdevtool.wrapper.inputs import CurlParser, PostmanParser, HarParser, DocParser
+from smartdevtool.wrapper.auth_detector import (
+    classify_header,
+)
+from smartdevtool.wrapper.inputs import CurlParser, DocParser, HarParser, PostmanParser
 
 
 def test_auth_detector_header():

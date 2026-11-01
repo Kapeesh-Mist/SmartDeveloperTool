@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import ast
 from pathlib import Path
+
 from jinja2 import Environment, FileSystemLoader
 
 from smartdevtool.wrapper.spec import EndpointSpec

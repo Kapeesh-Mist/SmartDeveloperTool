@@ -5,9 +5,9 @@ from __future__ import annotations
 import ast
 from pathlib import Path
 
-from smartdevtool.wrapper.inputs import CurlParser, PostmanParser, HarParser, DocParser
-from smartdevtool.wrapper.normalizer import Normalizer
 from smartdevtool.wrapper.codegen import WrapperGenerator
+from smartdevtool.wrapper.inputs import CurlParser, DocParser, PostmanParser
+from smartdevtool.wrapper.normalizer import Normalizer
 
 
 def test_codegen_from_curl():

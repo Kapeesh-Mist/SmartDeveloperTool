@@ -57,7 +57,7 @@ class DependencyInstaller:
             return False, f"Lockfile not found: {lockfile}"
 
         if dry_run:
-            with open(lockfile, "r", encoding="utf-8") as f:
+            with open(lockfile, encoding="utf-8") as f:
                 content = f.read()
             ui.summary_panel(f"Dry Run: {lockfile.name}", content)
             return True, "Dry-run completed. No packages installed."

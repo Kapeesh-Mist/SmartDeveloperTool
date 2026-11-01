@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from smartdevtool import ui
-from smartdevtool.deps.resolver import DependencyResolver, CompileResult
+from smartdevtool.deps.resolver import DependencyResolver
 from smartdevtool.llm.client import LLMClient
 from smartdevtool.llm.prompts import DEPS_CONFLICT_SYSTEM_PROMPT, DEPS_CONFLICT_USER_TEMPLATE
 
@@ -210,8 +210,7 @@ class ConflictAgent:
     def _write_reqs(self, path: Path, reqs: list[str]) -> None:
         """Write requirements list to file."""
         with open(path, "w", encoding="utf-8") as f:
-            for req in reqs:
-                f.write(f"{req.strip()}\n")
+            f.writelines(f"{req.strip()}\n" for req in reqs)
 
     def _query_llm(self, reqs: list[str], error_text: str) -> dict[str, Any] | None:
         """Ask LLM to propose a constraint fix."""

@@ -13,8 +13,8 @@ from __future__ import annotations
 import json
 import re
 from typing import Any
+
 import httpx
-import openai
 from openai import OpenAI
 
 from smartdevtool.config import Config

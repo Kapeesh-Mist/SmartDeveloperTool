@@ -11,16 +11,16 @@ Proves real HTTP round-trip self-correction:
 from __future__ import annotations
 
 import http.server
-import json
 import threading
 from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
-from smartdevtool.wrapper.spec import EndpointSpec, EndpointDef, AuthInfo
-from smartdevtool.wrapper.codegen import WrapperGenerator
-from smartdevtool.wrapper.validation_agent import ValidationAgent
+
 from smartdevtool.llm.client import LLMClient
+from smartdevtool.wrapper.codegen import WrapperGenerator
+from smartdevtool.wrapper.spec import AuthInfo, EndpointDef, EndpointSpec
+from smartdevtool.wrapper.validation_agent import ValidationAgent
 
 
 class AuthEnforcingHandler(http.server.BaseHTTPRequestHandler):

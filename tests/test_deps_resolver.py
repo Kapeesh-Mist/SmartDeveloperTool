@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from pathlib import Path
+
 from smartdevtool.deps.resolver import (
-    DependencyResolver,
     CompileResult,
+    DependencyResolver,
     is_resolution_conflict,
 )
 

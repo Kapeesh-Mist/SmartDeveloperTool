@@ -88,7 +88,7 @@ class ImportScanner:
 
                 file_path = Path(root) / file
                 try:
-                    with open(file_path, "r", encoding="utf-8-sig", errors="replace") as f:
+                    with open(file_path, encoding="utf-8-sig", errors="replace") as f:
                         source = f.read()
                     tree = ast.parse(source, filename=str(file_path))
                 except Exception:

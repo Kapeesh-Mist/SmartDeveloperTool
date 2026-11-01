@@ -24,7 +24,7 @@ from smartdevtool.llm.prompts import (
     WRAPPER_AUTH_FIX_USER_TEMPLATE,
 )
 from smartdevtool.wrapper.codegen import WrapperGenerator
-from smartdevtool.wrapper.spec import AuthInfo, EndpointDef, EndpointSpec
+from smartdevtool.wrapper.spec import EndpointDef, EndpointSpec
 
 
 @dataclass

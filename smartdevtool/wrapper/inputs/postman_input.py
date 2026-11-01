@@ -10,10 +10,10 @@ import json
 import re
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
 
-from smartdevtool.wrapper.auth_detector import classify_postman_auth, classify_header
-from smartdevtool.wrapper.spec import AuthInfo, EndpointDef, EndpointSpec, ParamSpec
+from smartdevtool.wrapper.auth_detector import classify_header, classify_postman_auth
+from smartdevtool.wrapper.spec import EndpointDef, EndpointSpec, ParamSpec
 
 
 def _make_operation_id(name: str, method: str, path: str) -> str:
@@ -36,7 +36,7 @@ class PostmanParser:
         """Load JSON from filepath or raw JSON string."""
         if isinstance(source, Path) or (isinstance(source, str) and (source.endswith(".json") or Path(source).is_file())):
             try:
-                with open(source, "r", encoding="utf-8-sig") as f:
+                with open(source, encoding="utf-8-sig") as f:
                     return json.load(f)
             except Exception:
                 pass

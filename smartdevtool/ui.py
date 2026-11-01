@@ -8,10 +8,11 @@ from __future__ import annotations
 
 import sys
 from typing import Any
+
 from rich.console import Console
 from rich.panel import Panel
-from rich.table import Table
 from rich.prompt import Confirm
+from rich.table import Table
 
 # Configure console for cross-platform robustness, especially Windows legacy consoles
 console = Console(safe_box=True)

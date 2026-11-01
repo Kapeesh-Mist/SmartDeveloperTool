@@ -10,9 +10,11 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
+    # Pinned to 3.11 — matches local dev environment and requires-python in pyproject.toml
+    # Add "3.12" back here once openai SDK compatibility is verified on 3.12
     strategy:
       matrix:
-        python-version: ["3.11", "3.12"]   # test on both
+        python-version: ["3.11"]
 
     steps:
       # 1. Get the code
@@ -41,6 +43,7 @@ jobs:
           SMARTDEVTOOL_LOG_LEVEL: WARNING
           MAX_ITERS_DEPS: 2
           MAX_ITERS_WRAPPER: 2
+          SMARTDEVTOOL_OFFLINE_MODE: "true"
         run: pytest --cov=smartdevtool --cov-report=term-missing -q
 
       # 6. Build the distributable package

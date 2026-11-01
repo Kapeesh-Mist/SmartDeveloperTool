@@ -8,9 +8,8 @@ Consults LLM for base-image selection when available, with a deterministic offli
 from __future__ import annotations
 
 import re
-import sys
 from pathlib import Path
-from typing import Any
+
 from jinja2 import Template
 
 from smartdevtool.llm.client import LLMClient
@@ -115,7 +114,7 @@ class DockerfileGenerator:
             dependencies=dependencies, python_version=python_version
         )
 
-        clean_env_vars = sorted(list(set(env_vars or [])))
+        clean_env_vars = sorted(set(env_vars or []))
 
         template = Template(DOCKERFILE_TEMPLATE, trim_blocks=True, lstrip_blocks=True)
         return template.render(

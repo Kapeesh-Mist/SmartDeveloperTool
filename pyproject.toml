@@ -38,7 +38,19 @@ testpaths = ["tests"]
 addopts = "-q"
 
 [tool.ruff]
-line-length = 100
+line-length = 120
+
+[tool.ruff.lint]
+# Rules enabled: pycodestyle errors, pyflakes, isort, flake8-comprehensions, pyupgrade
+select = ["E", "F", "I", "C4", "UP"]
+# Ignored rules:
+# E501  - line-length already set to 120; remaining long lines are in Typer help strings (unavoidable)
+# B008  - typer.Argument/Option in defaults is the standard Typer pattern
+# BLE001 - broad Exception catches are intentional in parser/agent code
+# S110  - try/except/pass is acceptable in parsers
+# PERF102 - dict.items() usage is fine here
+# RUF059 - unused unpacked vars in tests are intentional
+ignore = ["E501", "B008", "BLE001", "S110", "PERF102", "RUF059"]
 
 [tool.setuptools.packages.find]
 where = ["."]

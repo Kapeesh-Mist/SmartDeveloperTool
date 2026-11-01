@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -132,7 +132,7 @@ class ManifestManager:
             return Manifest()
 
         try:
-            with open(self.manifest_path, "r", encoding="utf-8") as f:
+            with open(self.manifest_path, encoding="utf-8") as f:
                 data = json.load(f)
             return Manifest.from_dict(data)
         except Exception:
@@ -155,11 +155,11 @@ class ManifestManager:
         """Update and save dependencies section."""
         manifest = self.load()
         manifest.dependencies = DependencySection(
-            imports=sorted(list(set(imports))),
+            imports=sorted(set(imports)),
             distribution_map=distribution_map,
             pinned_dependencies=pinned_dependencies,
             lockfile_path=lockfile_path,
-            last_resolved_at=datetime.now(timezone.utc).isoformat(),
+            last_resolved_at=datetime.now(UTC).isoformat(),
         )
         self.save(manifest)
         return manifest
@@ -183,7 +183,7 @@ class ManifestManager:
             base_url=base_url,
             endpoints=endpoints,
             auth_type=auth_type,
-            generated_at=datetime.now(timezone.utc).isoformat(),
+            generated_at=datetime.now(UTC).isoformat(),
         )
         if existing:
             manifest.wrappers.remove(existing)
@@ -205,7 +205,7 @@ class ManifestManager:
             dockerfile_path=dockerfile_path,
             image_tag=image_tag,
             last_build_hash=last_build_hash,
-            last_built_at=datetime.now(timezone.utc).isoformat(),
+            last_built_at=datetime.now(UTC).isoformat(),
         )
         self.save(manifest)
         return manifest

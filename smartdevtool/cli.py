@@ -4,36 +4,37 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
+
 import typer
 
 from smartdevtool import ui
 from smartdevtool.config import Config
-from smartdevtool.manifest import ManifestManager
 from smartdevtool.deps import (
-    ImportScanner,
-    map_imports,
-    DependencyResolver,
     ConflictAgent,
     DependencyInstaller,
-)
-from smartdevtool.wrapper import (
-    EndpointSpec,
-    CurlParser,
-    PostmanParser,
-    HarParser,
-    DocParser,
-    Normalizer,
-    WrapperGenerator,
-    LLMStructurer,
-    ValidationAgent,
+    DependencyResolver,
+    ImportScanner,
+    map_imports,
 )
 from smartdevtool.docker import (
-    DockerfileGenerator,
     DockerBuilder,
-    docker_available,
+    DockerfileGenerator,
     SyncAgent,
+    docker_available,
 )
 from smartdevtool.llm.client import LLMClient
+from smartdevtool.manifest import ManifestManager
+from smartdevtool.wrapper import (
+    CurlParser,
+    DocParser,
+    EndpointSpec,
+    HarParser,
+    LLMStructurer,
+    Normalizer,
+    PostmanParser,
+    ValidationAgent,
+    WrapperGenerator,
+)
 
 app = typer.Typer(
     name="smartdevtool",
@@ -77,7 +78,7 @@ def deps_scan(
     """Read-only scan of third-party imports via Python's AST."""
     ui.header(f"Scanning Python imports in: {path.resolve()}")
     scanner = ImportScanner(project_root=path)
-    imports = sorted(list(scanner.scan()))
+    imports = sorted(scanner.scan())
 
     if not imports:
         ui.warn("No third-party imports detected.")
@@ -110,7 +111,7 @@ def deps_install(
 
     # Step 1: Scan
     scanner = ImportScanner(project_root=path)
-    imports = sorted(list(scanner.scan()))
+    imports = sorted(scanner.scan())
 
     # Check for existing requirements.in or requirements.txt if scanner found nothing or to supplement
     reqs_in_file = path / "requirements.in"
@@ -118,12 +119,12 @@ def deps_install(
 
     if reqs_in_file.exists():
         ui.step(f"Found existing requirements file: {reqs_in_file.name}")
-        with open(reqs_in_file, "r", encoding="utf-8") as f:
+        with open(reqs_in_file, encoding="utf-8") as f:
             initial_reqs = [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
     if not initial_reqs:
         dist_map = map_imports(imports)
-        initial_reqs = sorted(list(set(dist_map.values())))
+        initial_reqs = sorted(set(dist_map.values()))
 
     if not initial_reqs:
         ui.warn("No dependencies detected to resolve.")

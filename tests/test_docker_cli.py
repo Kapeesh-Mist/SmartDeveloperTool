@@ -12,7 +12,7 @@ from smartdevtool.manifest import ManifestManager
 runner = CliRunner()
 
 
-def test_cli_docker_build_generates_dockerfile(tmp_path: Path):
+def test_cli_docker_build_generates_dockerfile(tmp_path: Path, monkeypatch):
     """Test `smartdevtool docker build` generates a tailored Dockerfile."""
     (tmp_path / "app.py").write_text("print('hello')", encoding="utf-8")
 
@@ -23,6 +23,7 @@ def test_cli_docker_build_generates_dockerfile(tmp_path: Path):
         distribution_map={"requests": "requests"},
         pinned_dependencies=["requests==2.31.0"],
     )
+    monkeypatch.setattr("smartdevtool.cli.docker_available", lambda: False)
 
     result = runner.invoke(
         app,
